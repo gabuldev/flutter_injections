@@ -1,4 +1,4 @@
-import '../instance.dart';
+import '../flutter_instance.dart';
 import 'bind.dart';
 
 enum InjectType { factory, singleton, lazySingleton }
@@ -16,7 +16,7 @@ class Inject<T> {
   factory Inject.lazySingleton(Bind<T> _call) =>
       Inject(_call, type: InjectType.lazySingleton);
 
-  T get(Instance i) {
+  T get(InstanceProvider i) {
     if (type == InjectType.factory) {
       value = null;
     }

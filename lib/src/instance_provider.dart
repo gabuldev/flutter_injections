@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:instance/src/inject.dart';
 
+import 'inject.dart';
 import 'instance.dart';
 
 export 'instance.dart';
 
 class InstanceProvider extends InheritedWidget {
-  final Instance i = Instance();
+  late final Instance i = Instance(provider: this);
   final BuildContext context;
   final List<Inject<Object>> injections;
 

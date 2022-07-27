@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:instance/instance.dart';
 
+import 'package:flutter_instance/flutter_instance.dart';
 import 'home_controller.dart';
 import 'home_page.dart';
 import 'home_repository.dart';
@@ -14,9 +14,9 @@ class HomeProvider extends StatelessWidget {
     return InstanceProvider(
         context: context,
         injections: [
-          Inject<HomeRepository>((i) => HomeRepository(client: i.get<Dio>())),
+          Inject<HomeRepository>((i) => HomeRepository(client: i.find<Dio>())),
           Inject<HomeController>(
-              (i) => HomeController(repository: i.get<HomeRepository>()))
+              (i) => HomeController(repository: i.find<HomeRepository>()))
         ],
         child: const HomePage());
   }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:instance/instance.dart';
+import 'package:flutter_instance/flutter_instance.dart';
 
 import '../../shared/helpers/state.dart';
 import 'home_controller.dart';

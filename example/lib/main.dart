@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:instance/instance.dart';
+import 'package:flutter_instance/flutter_instance.dart';
 
 import 'modules/home/home_provider.dart';
 import 'modules/splash/splash_page.dart';

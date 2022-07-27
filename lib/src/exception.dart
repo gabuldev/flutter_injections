@@ -3,4 +3,7 @@ class InjectException implements Exception {
   InjectException({
     required this.message,
   });
+
+  @override
+  String toString() => "InjectException: $message";
 }
