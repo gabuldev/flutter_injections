@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_instance/src/exception.dart';
 
 import 'inject.dart';
 import 'instance.dart';
@@ -6,9 +7,12 @@ import 'instance.dart';
 export 'instance.dart';
 
 class InstanceProvider extends InheritedWidget {
-  late final Instance i = Instance(provider: this);
   final BuildContext context;
   final List<Inject<Object>> injections;
+
+  static final List<Instance> _instances = [];
+
+  Instance get i => _instances.last;
 
   InstanceProvider({
     Key? key,
@@ -16,6 +20,7 @@ class InstanceProvider extends InheritedWidget {
     required this.context,
     required this.injections,
   }) : super(key: key, child: child) {
+    _instances.add(Instance(provider: this));
     for (var k = 0; k < injections.length; k++) {
       i.set(injections[k]);
     }
@@ -26,27 +31,36 @@ class InstanceProvider extends InheritedWidget {
   }
 
   T find<T>() {
-    return _find(i: i, context: context);
+    return _find<T>();
   }
 
-  static T _find<T>({required Instance i, BuildContext? context}) {
-    try {
-      final instance = i.get<T>();
-      return instance;
-    } catch (e) {
-      final d = of(context!)!;
-      final instance = d.i.get<T>();
-      return instance;
+  static T _find<T>() {
+    var _operations = 1;
+    var now = DateTime.now();
+    T? _instance;
+    for (var k = _instances.length - 1; k >= 0; k--) {
+      final _i = _instances[k];
+      _instance ??= _i.get<T>();
+      if (_instance != null) {
+        break;
+      }
+      _operations++;
     }
+    if (_instance == null) {
+      throw InjectException(message: "$T DONT EXIST");
+    }
+    var end = DateTime.now();
+    print(
+        "$T operations -> $_operations Time: ${end.millisecond - now.millisecond}ms");
+    return _instance;
   }
 
-  static T get<T>(BuildContext context) {
-    final d = of(context)!;
-    return _find(i: d.i, context: context);
+  static T get<T>() {
+    return _find<T>();
   }
 
   @override
   bool updateShouldNotify(InstanceProvider oldWidget) {
-    return false;
+    return oldWidget.injections != injections;
   }
 }

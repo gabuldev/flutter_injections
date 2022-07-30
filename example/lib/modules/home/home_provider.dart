@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:example/modules/home/widgets/home_alert_dialog/home_alert_dialog_controller.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_instance/flutter_instance.dart';
@@ -16,7 +17,7 @@ class HomeProvider extends StatelessWidget {
         injections: [
           Inject<HomeRepository>((i) => HomeRepository(client: i.find<Dio>())),
           Inject<HomeController>(
-              (i) => HomeController(repository: i.find<HomeRepository>()))
+              (i) => HomeController(repository: i.find<HomeRepository>())),
         ],
         child: const HomePage());
   }

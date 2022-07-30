@@ -11,7 +11,7 @@ class Instance {
   });
 
   /// Used for get instance
-  B get<B>([B? type]) {
+  B? get<B>([B? type]) {
     if (B.toString() == "dynamic") {
       throw InjectException(message: "NOT ALLOW FOR DYNAMIC VALUES");
     }
@@ -19,7 +19,7 @@ class Instance {
     if (_instance != null) {
       return _instance.get(provider);
     } else {
-      throw InjectException(message: "$B DONT FOUND");
+      return null;
     }
   }
 

@@ -18,4 +18,15 @@ class HomeRepository {
       rethrow;
     }
   }
+
+  Future<List<PostModel>> getPhotos() async {
+    try {
+      final response = await client.get("/photos");
+      return (response.data as List<dynamic>)
+          .map((e) => PostModel.fromMap(e))
+          .toList();
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

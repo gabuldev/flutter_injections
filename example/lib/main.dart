@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:example/modules/home/widgets/home_alert_dialog/home_alert_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_instance/flutter_instance.dart';
 
@@ -28,7 +29,8 @@ class MyApp extends StatelessWidget {
           initialRoute: "/splash",
           routes: {
             "/splash": (context) => const SplashPage(),
-            "/home": (context) => const HomeProvider()
+            "/home": (context) => const HomeProvider(),
+            "/alert": (context) => const HomeAlertWidget()
           },
         ));
   }

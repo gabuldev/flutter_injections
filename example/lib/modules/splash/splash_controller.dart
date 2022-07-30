@@ -4,7 +4,7 @@ import 'splash_state.dart';
 class SplashController extends SplashState {
   Future<void> syncData() async {
     state = AppState.loading;
-    await Future.delayed(const Duration(seconds: 4));
+    await Future.delayed(const Duration(seconds: 1));
     state = AppState.success;
   }
 }
