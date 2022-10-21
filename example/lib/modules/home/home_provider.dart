@@ -12,13 +12,10 @@ class HomeProvider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InstanceProvider(
-        context: context,
-        injections: [
-          Inject<HomeRepository>((i) => HomeRepository(client: i.find<Dio>())),
-          Inject<HomeController>(
-              (i) => HomeController(repository: i.find<HomeRepository>())),
-        ],
-        child: const HomePage());
+    return FlutterInstance(injections: [
+      Inject<HomeRepository>((i) => HomeRepository(client: i.find<Dio>())),
+      Inject<HomeController>(
+          (i) => HomeController(repository: i.find<HomeRepository>())),
+    ], child: const HomePage());
   }
 }

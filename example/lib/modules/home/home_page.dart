@@ -14,15 +14,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late final controller = InstanceProvider.get<HomeController>();
+  late final controller = FlutterInstance.get<HomeController>();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     controller.getPosts();
-    return InstanceProvider(
-      context: context,
+    return FlutterInstance(
       injections: [
         Inject<HomeAlertDialogController>.singleton((i) =>
             HomeAlertDialogController(repository: i.find<HomeRepository>()))

@@ -16,7 +16,7 @@ class Inject<T> {
   factory Inject.lazySingleton(Bind<T> _call) =>
       Inject(_call, type: InjectType.lazySingleton);
 
-  T get(InstanceProvider i) {
+  T get(FlutterInstance i) {
     if (type == InjectType.factory) {
       value = null;
     }

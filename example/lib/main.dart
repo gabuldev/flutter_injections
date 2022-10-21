@@ -16,8 +16,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InstanceProvider(
-        context: context,
+    return FlutterInstance(
         injections: [
           Inject<Dio>((i) => CustomDio()),
         ],

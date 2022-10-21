@@ -10,7 +10,7 @@ class HomeAlertWidget extends StatefulWidget {
 }
 
 class _HomeAlertWidgetState extends State<HomeAlertWidget> {
-  late final controller = InstanceProvider.get<HomeAlertDialogController>();
+  late final controller = FlutterInstance.get<HomeAlertDialogController>();
 
   @override
   Widget build(BuildContext context) {

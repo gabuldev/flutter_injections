@@ -5,7 +5,7 @@ import 'instance_provider.dart';
 
 class Instance {
   final instances = <String, Inject>{};
-  final InstanceProvider provider;
+  final FlutterInstance provider;
   Instance({
     required this.provider,
   });

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_instance/src/exception.dart';
 
@@ -6,28 +8,22 @@ import 'instance.dart';
 
 export 'instance.dart';
 
-class InstanceProvider extends InheritedWidget {
-  final BuildContext context;
+class FlutterInstance extends InheritedWidget {
   final List<Inject<Object>> injections;
 
   static final List<Instance> _instances = [];
 
   Instance get i => _instances.last;
 
-  InstanceProvider({
+  FlutterInstance({
     Key? key,
     required Widget child,
-    required this.context,
     required this.injections,
   }) : super(key: key, child: child) {
     _instances.add(Instance(provider: this));
     for (var k = 0; k < injections.length; k++) {
       i.set(injections[k]);
     }
-  }
-
-  static InstanceProvider? of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<InstanceProvider>();
   }
 
   T find<T>() {
@@ -50,8 +46,7 @@ class InstanceProvider extends InheritedWidget {
       throw InjectException(message: "$T DONT EXIST");
     }
     var end = DateTime.now();
-    print(
-        "$T operations -> $_operations Time: ${end.millisecond - now.millisecond}ms");
+    log("$T operations -> $_operations Time: ${end.millisecond - now.millisecond}ms");
     return _instance;
   }
 
@@ -60,7 +55,7 @@ class InstanceProvider extends InheritedWidget {
   }
 
   @override
-  bool updateShouldNotify(InstanceProvider oldWidget) {
+  bool updateShouldNotify(FlutterInstance oldWidget) {
     return oldWidget.injections != injections;
   }
 }
