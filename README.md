@@ -50,3 +50,13 @@ It`s simple, just three steps:
     ```  
 
 - Direct and simple! Good job and have fun!
+
+# Contribuitors
+
+Be a contribuitor too!
+
+<a href="https://github.com/gabuldev/flutter_injections/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=gabuldev/flutter_injections" />
+</a>
+
+Made with [contrib.rocks](https://contrib.rocks).
