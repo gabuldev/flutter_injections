@@ -3,7 +3,7 @@ This package helps you manage any dependencies in your project with whithout con
 
 ## Learn more
 
-Used this [documentation](https://gabuldev-packages.web.app/) to improve your knowlegeds about this packages
+Use this [documentation](https://gabuldev-packages.web.app/) to improve your knowlegeds about this packages
 
 ## Features
 
