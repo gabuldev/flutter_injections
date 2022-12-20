@@ -2,8 +2,7 @@ name: flutter_injections
 description: This package helps you manage any dependencies in your project with whithout context and is possible to create dependencies for modules.
 version: 1.0.0-beta
 homepage: https://gabul.dev
-publisher: 
-
+publish_to:
 environment:
   sdk: ">=2.16.2 <3.0.0"
   flutter: ">=1.17.0"
