@@ -1,5 +1,5 @@
 # Flutter Injections
-This package helps you to manage any dependencies in your project whithout need to use context and makes possible to create dependencies for modules. The objective is help any developer to manage dependencies with a easy to use API.
+This package helps you to manage any dependencies in your project without need to use context and makes possible to create dependencies for modules. The objective is help any developer to manage dependencies with a easy to use API.
 
 ## Learn more
 
