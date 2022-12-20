@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:example/modules/home/widgets/home_alert_dialog/home_alert_dialog.dart';
+import 'package:example/modules/splash/splash_injections.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_instance/flutter_instance.dart';
+import 'package:flutter_injections/flutter_injections.dart';
 
-import 'modules/home/home_provider.dart';
-import 'modules/splash/splash_page.dart';
+import 'modules/home/home_injections.dart';
 import 'shared/services/custom_dio/custom_dio.dart';
 
 void main() {
@@ -16,8 +16,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InstanceProvider(
-        context: context,
+    return FlutterInjections(
         injections: [
           Inject<Dio>((i) => CustomDio()),
         ],
@@ -28,8 +27,8 @@ class MyApp extends StatelessWidget {
           ),
           initialRoute: "/splash",
           routes: {
-            "/splash": (context) => const SplashPage(),
-            "/home": (context) => const HomeProvider(),
+            "/splash": (context) => const SplashInjections(),
+            "/home": (context) => const HomeInjections(),
             "/alert": (context) => const HomeAlertWidget()
           },
         ));

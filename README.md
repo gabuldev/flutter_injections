@@ -1,39 +1,48 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# Flutter Injections
+This package helps you manage any dependencies in your project with whithout context and is possible to create dependencies for modules. The objective is help any developer to manage dependencies using a easy way for do this.
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
+## Learn more
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+Used this documentation to improve your knowlegeds about this packages
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+- This package use search-tree to get the dependencies, this improve the velocity to get and use more less CPU to search the specific object.
+- Provide you create a module injections, such as __HomeInjections__ have all dependencies you to need on __HomePage__.
+- Is easy to use, the focus is keep it simple to create a great application.
+- Auto dispose when you remove the FlutterInjection on your Widget Tree.
+- You can dispose a specific object using __dispose<T> method.
 
-## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+## How to use
+ It`s simple, you need three step to add this package
 
-## Usage
+ - add on __pubspec.yaml__ file
+```yaml
+   flutter_injections: ^any # or current version
+```
+- Create your __FlutterInjections__ anywhere you to need.
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+``` dart
+class YourPageInjections extends StatelessWidget {
+  const YourPageInjections({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return FlutterInjections(injections: [
+      Inject<YourRepository>((i) => YourRepository(client: i.find<Dio>())),
+      Inject<YourController>(
+          (i) => YourController(repository: i.find<YourRepository>())),
+    ], child: const YourPage());
+  }
+}
+``` 
+
+  - And get the dependencies is simple. See below
 
 ```dart
-const like = 'sample';
-```
+    final controller = FlutterInjections.get<YourController>();
+```  
 
-## Additional information
+  - So, that's it! Great job for you.
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
