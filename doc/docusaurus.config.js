@@ -69,9 +69,8 @@ const config = {
             position: "left",
             label: "Tutorial",
           },
-          { to: "/blog", label: "Blog", position: "left" },
           {
-            href: "https://github.com/facebook/docusaurus",
+            href: "https://github.com/gabuldev/flutter_injections",
             label: "GitHub",
             position: "right",
           },
@@ -93,16 +92,16 @@ const config = {
             title: "Community",
             items: [
               {
-                label: "Stack Overflow",
-                href: "https://stackoverflow.com/questions/tagged/docusaurus",
-              },
-              {
                 label: "Discord",
-                href: "https://discordapp.com/invite/docusaurus",
+                href: "https://discord.gg/4uKWhJazyT",
               },
               {
                 label: "Twitter",
-                href: "https://twitter.com/docusaurus",
+                href: "https://twitter.com/gabuldev",
+              },
+              {
+                label: "Instagran",
+                href: "https://instagram.com/gabul.dev",
               },
             ],
           },
