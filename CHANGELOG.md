@@ -1,3 +1,5 @@
+## 1.0.2-beta
+- Update descriptions on Readme and Doc
 ## 1.0.1-beta
 - Fix Readme.md
 ## 1.0.0-beta
