@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_injections/flutter_injections.dart';
 
 import 'splash_controller.dart';
 
@@ -7,10 +8,10 @@ class SplashPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = SplashController();
+    final controller = FlutterInjections.get<SplashController>();
     controller
         .syncData()
-        .then((value) => Navigator.pushNamed(context, "/home"));
+        .then((value) => Navigator.pushReplacementNamed(context, "/home"));
 
     return const Scaffold(
       backgroundColor: Colors.black,

@@ -1,3 +1,3 @@
-import '../flutter_instance.dart';
+import '../flutter_injections.dart';
 
-typedef Bind<T> = T Function(InstanceProvider i);
+typedef Bind<T> = T Function(FlutterInjections i);

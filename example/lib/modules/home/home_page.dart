@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_instance/flutter_instance.dart';
+import 'package:flutter_injections/flutter_injections.dart';
 
 import '../../shared/helpers/state.dart';
 import 'home_controller.dart';
@@ -14,24 +14,28 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late final controller = InstanceProvider.get<HomeController>();
+  late final controller = FlutterInjections.get<HomeController>();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     controller.getPosts();
-    return InstanceProvider(
-      context: context,
+    return FlutterInjections(
       injections: [
         Inject<HomeAlertDialogController>.singleton((i) =>
             HomeAlertDialogController(repository: i.find<HomeRepository>()))
       ],
       child: Scaffold(
+          appBar: AppBar(
+            title: const Text("HomePage"),
+          ),
           key: scaffoldKey,
-          floatingActionButton: FloatingActionButton(onPressed: () {
-            Navigator.pushNamed(context, "/alert");
-          }),
+          floatingActionButton: FloatingActionButton(
+              child: const Icon(Icons.add),
+              onPressed: () {
+                Navigator.pushNamed(context, "/alert");
+              }),
           body: AnimatedBuilder(
             animation: controller,
             builder: (_, __) {
