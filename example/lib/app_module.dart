@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:example/app_widget.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_injections/flutter_injections.dart';
 
@@ -8,7 +9,7 @@ class AppModule extends FlutterModule {
   const AppModule({Key? key}) : super(key: key);
 
   @override
-  Widget get child => throw UnimplementedError();
+  Widget get child => const AppWidget();
 
   @override
   List<Inject<Object>> get injections => [
