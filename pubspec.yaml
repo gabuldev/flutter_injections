@@ -22,9 +22,7 @@ flutter:
 
 topics:
   - dependency injection
-  - flutter
   - flutter_injections
   - di
   - injection
-  - flutter_dependency_injection
  
