@@ -53,6 +53,7 @@ class FlutterInjections {
 
   /// Disposes all injections in the current instance.
   void disposeAll() {
+    _instances.remove(_current);
     _current?.disposeAll();
   }
 

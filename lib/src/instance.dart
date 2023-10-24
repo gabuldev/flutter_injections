@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:developer';
 
 import 'exception.dart';
@@ -55,4 +56,14 @@ class FlutterInstance {
     log("FlutterInstance - Removed injections: ${instances.keys.toList()}");
     instances.clear();
   }
+
+  @override
+  bool operator ==(covariant FlutterInstance other) {
+    if (identical(this, other)) return true;
+
+    return other.instances == instances;
+  }
+
+  @override
+  int get hashCode => provider.hashCode;
 }

@@ -1,3 +1,5 @@
+## 1.1.1
+- Bugfix: when change module closed all injections
 ## 1.1.0
 - Released stable version
 - Add new widget __FlutterModule__

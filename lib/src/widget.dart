@@ -7,7 +7,7 @@ class FlutterInjectionsWidget extends StatefulWidget {
   final WidgetBuilder builder;
   final List<Inject<Object>> injections;
 
-  static final FlutterInjections instance = FlutterInjections();
+  final FlutterInjections instance = FlutterInjections();
 
   FlutterInjectionsWidget({
     Key? key,
@@ -25,7 +25,7 @@ class FlutterInjectionsWidget extends StatefulWidget {
 class _FlutterInjectionsWidgetState extends State<FlutterInjectionsWidget> {
   @override
   void dispose() {
-    FlutterInjectionsWidget.instance.disposeAll();
+    widget.instance.disposeAll();
     super.dispose();
   }
 
