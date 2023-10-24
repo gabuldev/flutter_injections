@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/gabuldev/flutter_injections/graph/badge.svg?token=G2b17lOXaU)](https://codecov.io/gh/gabuldev/flutter_injections)
+
 # Flutter Injections
 This package helps you to manage any dependencies in your project without need to use context and makes possible to create dependencies for modules. The objective is help any developer to manage dependencies with a easy to use API.
 
@@ -35,14 +37,33 @@ It`s simple, just three steps:
 
       @override
       Widget build(BuildContext context) {
-        return FlutterInjections(injections: [
+        return FlutterInjectionsWidget(injections: [
           Inject<YourRepository>((i) => YourRepository(client: i.find<Dio>())),
           Inject<YourController>(
               (i) => YourController(repository: i.find<YourRepository>())),
-        ], child: const YourPage());
+        ], builder:(_) => const YourPage());
       }
     }
     ``` 
+
+    Or you can use extends the new widget __FlutterModule__ to add your dependencies
+    ```dart
+    class YourModule extends FlutterModule {
+      const YourModule({Key? key}) : super(key: key);
+
+      @override
+      Widget get child => const YourPage();
+
+      @override
+        List<Inject<Object>> get injections => [
+         Inject<YourRepository>((i) => YourRepository(client: i.find<Dio>())),
+          Inject<YourController>(
+              (i) => YourController(repository: i.find<YourRepository>())),
+        ];
+}
+
+    ``` 
+
 
 3. And finally, use it to get the dependencies:
     ```dart

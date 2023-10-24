@@ -3,6 +3,28 @@ import 'bind.dart';
 
 enum InjectType { factory, singleton, lazySingleton }
 
+/// A class that represents an injection of a dependency.
+///
+/// An injection can be of three types: factory, singleton, and lazySingleton.
+/// The type of injection is determined by the [type] parameter passed to the constructor.
+///
+/// The [Inject] class has three factory constructors: [Inject.factory], [Inject.singleton], and [Inject.lazySingleton].
+/// Each constructor creates an instance of [Inject] with the corresponding [InjectType].
+///
+/// The [get] method returns the value of the injected dependency.
+/// If the injection is of type factory, the value is always recomputed.
+/// If the injection is of type singleton or lazySingleton, the value is computed only once and cached for future use.
+///
+/// The injected dependency is computed by calling the [_call] function passed to the constructor.
+/// The [_call] function takes a [FlutterInjections] instance as a parameter and returns an instance of type [T].
+///
+/// Example usage:
+///
+/// ```dart
+/// final myInject = Inject.singleton((i) => MyDependency());
+/// final myDependency = myInject.get(myFlutterInjections);
+/// ```
+
 class Inject<T> {
   late final Bind<T> _call;
   final InjectType type;
@@ -23,5 +45,9 @@ class Inject<T> {
     }
     value ??= _call(i);
     return value!;
+  }
+
+  void dispose() {
+    value = null;
   }
 }

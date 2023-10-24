@@ -1,0 +1,17 @@
+name: Run coverage and upload to Codecov
+'on': pull_request
+jobs:
+  test_coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: 'stable'
+      - run: |
+          flutter pub get
+          flutter test --coverage  
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
