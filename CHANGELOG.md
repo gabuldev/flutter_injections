@@ -1,3 +1,8 @@
+## 1.1.0
+- Released stable version
+- Add new widget __FlutterModule__
+- Rename widget __FlutterInjections__ to __FlutterInjectionsWidget__
+- Create all tests
 ## 1.0.3-beta
 - Add contribuitors sections on reademe
 ## 1.0.2-beta
