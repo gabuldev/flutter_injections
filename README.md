@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/gabuldev/flutter_injections/graph/badge.svg?token=G2b17lOXaU)](https://codecov.io/gh/gabuldev/flutter_injections)
+
 # Flutter Injections
 This package helps you to manage any dependencies in your project without need to use context and makes possible to create dependencies for modules. The objective is help any developer to manage dependencies with a easy to use API.
 
