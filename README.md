@@ -37,11 +37,11 @@ It`s simple, just three steps:
 
       @override
       Widget build(BuildContext context) {
-        return FlutterInjections(injections: [
+        return FlutterInjectionsWidget(injections: [
           Inject<YourRepository>((i) => YourRepository(client: i.find<Dio>())),
           Inject<YourController>(
               (i) => YourController(repository: i.find<YourRepository>())),
-        ], child: const YourPage());
+        ], builder:(_) => const YourPage());
       }
     }
     ``` 

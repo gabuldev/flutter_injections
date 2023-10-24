@@ -59,8 +59,8 @@ class SplashInjections extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FlutterInjections(
-      child: const SplashPage(),
+    return FlutterInjectionsWidget(
+      builder:(_) => const SplashPage(),
       injections: [
         Inject<SplashController>.singleton((i) => SplashController())
       ],
@@ -87,11 +87,11 @@ class HomeInjections extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FlutterInjections(injections: [
+    return FlutterInjectionsWidget(injections: [
       Inject<HomeRepository>((i) => HomeRepository(client: i.find<Dio>())),
       Inject<HomeController>(
           (i) => HomeController(repository: i.find<HomeRepository>())),
-    ], child: const HomePage());
+    ], builder: (_) => const HomePage());
   }
 }
 
@@ -99,4 +99,4 @@ class HomeInjections extends StatelessWidget {
 ```
 
 
-The complete in github repository.
+The complete example here [github repository](https://github.com/gabuldev/flutter_injections/tree/main/example)

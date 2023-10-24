@@ -15,7 +15,7 @@ class YourPageInjections extends StatelessWidget {
       Inject<YourRepository>((i) => YourRepository(client: i.find<Dio>())),
       Inject<YourController>(
           (i) => YourController(repository: i.find<YourRepository>())),
-    ], child: const YourPage());
+    ], builder:(_) => const YourPage());
     // highlight-end
   }
 }

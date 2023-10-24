@@ -45,7 +45,8 @@ class FlutterInstance {
 
   //Used for dispose specific instance
   void dispose<T>() {
-    instances.remove(T.toString());
+    final type = Helpers.sanitize(T.toString());
+    instances.remove(type);
     log("FlutterInstance - Dispose injection ${T.toString()}");
   }
 

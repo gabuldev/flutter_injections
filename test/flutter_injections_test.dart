@@ -76,4 +76,37 @@ void main() {
       }
     });
   });
+  test('dispose() disposes the correct instance', () {
+    final instance = FlutterInjections();
+    instance.addInjections([
+      Inject<ClassA>((_) => ClassA()),
+      Inject<ClassB>((_) => ClassB(instance.find<ClassA>())),
+      Inject<ClassC>((_) => ClassC(instance.find<ClassB>())),
+      Inject<ClassD>((_) => ClassD(instance.find<ClassC>())),
+      Inject<ClassE>((_) => ClassE(
+            instance.find<ClassD>(),
+            instance.find<ClassC>(),
+            instance.find<ClassB>(),
+            instance.find<ClassA>(),
+          )),
+    ]);
+
+    final classA1 = instance.find<ClassA>();
+    final classA2 = instance.find<ClassA>();
+    expect(classA1, equals(classA2));
+
+    instance.dispose<ClassA>();
+    final classA3 = instance.find<ClassA>();
+    expect(classA1, isNot(equals(classA3)));
+  });
+
+  test('dispose() throws InjectException if instance not found', () {
+    final instance = FlutterInjections();
+    try {
+      instance.dispose<ClassA>();
+    } catch (e) {
+      expect(e.toString(), equals('NotDisposeException: ClassA DON\'T EXIST'));
+      expect(e, isA<NotDisposeException>());
+    }
+  });
 }

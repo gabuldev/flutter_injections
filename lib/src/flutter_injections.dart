@@ -56,6 +56,32 @@ class FlutterInjections {
     _current?.disposeAll();
   }
 
+  /// Disposes the instance of type T that was last registered with the [register] method.
+  ///
+  /// This method searches for the last registered instance of type T and disposes it.
+  /// If no instance of type T was registered, this method does nothing.
+  ///
+  /// Example usage:
+  /// ```
+  /// FlutterInjections.dispose<MyService>();
+  /// ```
+  void dispose<T>() => _dispose<T>();
+
+  /// Disposes the instance of type T that was last registered with the [register] method.
+
+  static void _dispose<T>() {
+    T? _instance;
+    for (var k = _instances.length - 1; k >= 0; k--) {
+      final _i = _instances[k];
+      _instance ??= _i.get<T>();
+      if (_instance != null) {
+        _i.dispose<T>();
+        return;
+      }
+    }
+    throw NotDisposeException(message: "$T DON'T EXIST");
+  }
+
   /// Retrieves the injection of the specified type from the last added instance.
   static T get<T>() {
     return _find<T>();

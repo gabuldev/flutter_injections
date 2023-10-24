@@ -7,5 +7,14 @@ void main() {
       final exception = InjectException(message: 'Test message');
       expect(exception.toString(), 'InjectException: Test message');
     });
+    test('toString returns correct message', () {
+      final exception = NotDisposeException(message: 'Test message');
+      expect(exception.toString(), 'NotDisposeException: Test message');
+    });
+
+    test('exception message is not null', () {
+      final exception = NotDisposeException(message: 'Test message');
+      expect(exception.message, isNotNull);
+    });
   });
 }

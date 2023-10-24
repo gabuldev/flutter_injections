@@ -11,3 +11,13 @@ class InjectException implements Exception {
   @override
   String toString() => "InjectException: $message";
 }
+
+class NotDisposeException implements Exception {
+  final String message;
+  NotDisposeException({
+    required this.message,
+  });
+
+  @override
+  String toString() => "NotDisposeException: $message";
+}
