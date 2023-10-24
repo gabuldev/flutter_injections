@@ -21,12 +21,12 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     controller.getPosts();
-    return FlutterInjections(
+    return FlutterInjectionsWidget(
       injections: [
         Inject<HomeAlertDialogController>.singleton((i) =>
             HomeAlertDialogController(repository: i.find<HomeRepository>()))
       ],
-      child: Scaffold(
+      builder: (_) => Scaffold(
           appBar: AppBar(
             title: const Text("HomePage"),
           ),

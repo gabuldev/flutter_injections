@@ -5,6 +5,17 @@ import 'flutter_injections.dart';
 import 'helpers.dart';
 import 'inject.dart';
 
+/// A class that manages instances of injected objects.
+///
+/// This class provides methods to get, set, and dispose of instances of injected objects.
+///
+/// The `get` method is used to retrieve an instance of an injected object. It takes an optional parameter of the type of the object to retrieve. If no type is provided, it returns `null`. If the type is not found in the instances map, it returns `null`.
+///
+/// The `set` method is used to add a new instance of an injected object to the instances map. It takes an `Inject` object as a parameter.
+///
+/// The `dispose` method is used to remove a specific instance of an injected object from the instances map. It takes the type of the object to remove as a parameter.
+///
+/// The `disposeAll` method is used to remove all instances of injected objects from the instances map.
 class FlutterInstance {
   final instances = <String, Inject>{};
   final FlutterInjections provider;

@@ -44,6 +44,25 @@ It`s simple, just three steps:
     }
     ``` 
 
+    Or you can use extends the new widget __FlutterModule__ to add your dependencies
+    ```dart
+    class YourModule extends FlutterModule {
+      const YourModule({Key? key}) : super(key: key);
+
+      @override
+      Widget get child => const YourPage();
+
+      @override
+        List<Inject<Object>> get injections => [
+         Inject<YourRepository>((i) => YourRepository(client: i.find<Dio>())),
+          Inject<YourController>(
+              (i) => YourController(repository: i.find<YourRepository>())),
+        ];
+}
+
+    ``` 
+
+
 3. And finally, use it to get the dependencies:
     ```dart
     final controller = FlutterInjections.get<YourController>();

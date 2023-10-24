@@ -19,6 +19,24 @@ class YourPageInjections extends StatelessWidget {
     // highlight-end
   }
 }
+```
+
+Or you can use extends the new widget __FlutterModule__ to add your dependencies
+```dart
+    class YourModule extends FlutterModule {
+      const YourModule({Key? key}) : super(key: key);
+
+      @override
+      Widget get child => const HomePage();
+
+      @override
+        List<Inject<Object>> get injections => [
+          Inject<HomeRepository>((i) => HomeRepository(client: i.find<Dio>())),
+          Inject<HomeController>(
+              (i) => HomeController(repository: i.find<HomeRepository>())),
+        ];
+}
+
 ``` 
 
 :::caution
