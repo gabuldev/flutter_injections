@@ -21,7 +21,7 @@ dev_dependencies:
 flutter:
 
 topics:
-  - dependency injection
+  - dependency_injection
   - flutter_injections
   - di
   - injection
