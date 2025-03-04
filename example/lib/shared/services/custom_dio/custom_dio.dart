@@ -1,10 +1,3 @@
-import 'package:dio/native_imp.dart';
-
-import 'interceptors/cache_interceptor.dart';
-
-class CustomDio extends DioForNative {
-  CustomDio() {
-    options.baseUrl = "https://jsonplaceholder.typicode.com";
-    interceptors.add(CacheInterceptor());
-  }
-}
+export 'custom_dio_base.dart'
+    if (dart.library.io) 'custom_dio_native.dart'
+    if (dart.library.js) 'custom_dio_browser.dart';

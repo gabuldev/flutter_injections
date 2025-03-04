@@ -1,7 +1,9 @@
+import 'package:dio/dio.dart';
+import 'package:example/shared/services/custom_dio/custom_dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_injections/flutter_injections.dart';
 
 import 'modules/home/home_module.dart';
-import 'modules/home/widgets/home_alert_dialog/home_alert_dialog.dart';
 import 'modules/splash/splash_module.dart';
 
 class AppWidget extends StatelessWidget {
@@ -9,17 +11,16 @@ class AppWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Offline First',
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-      ),
-      initialRoute: "/splash",
-      routes: {
-        "/splash": (context) => const SplashModule(),
-        "/home": (context) => const HomeModule(),
-        "/alert": (context) => const HomeAlertWidget()
-      },
+    return FlutterApp(
+      title: 'Flutter Injections Example',
+      initialRoute: '/splash',
+      injections: [
+        Inject<Dio>((i) => dioInstance),
+      ],
+      modules: const [
+        HomeModule(),
+        SplashModule(),
+      ],
     );
   }
 }

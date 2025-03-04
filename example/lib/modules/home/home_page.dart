@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
           floatingActionButton: FloatingActionButton(
               child: const Icon(Icons.add),
               onPressed: () {
-                Navigator.pushNamed(context, "/alert");
+                Navigator.pushNamed(context, "/home/alert");
               }),
           body: AnimatedBuilder(
             animation: controller,
