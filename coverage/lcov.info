@@ -1,4 +1,4 @@
-SF:lib\src\exception.dart
+SF:lib/src/exception.dart
 DA:7,3
 DA:11,1
 DA:12,2
@@ -8,7 +8,7 @@ DA:22,2
 LF:6
 LH:6
 end_of_record
-SF:lib\src\flutter_injections.dart
+SF:lib/src/flutter_injections.dart
 DA:16,15
 DA:18,5
 DA:19,10
@@ -39,7 +39,7 @@ DA:88,2
 LF:27
 LH:26
 end_of_record
-SF:lib\src\inject.dart
+SF:lib/src/inject.dart
 DA:32,5
 DA:35,1
 DA:36,1
@@ -57,7 +57,7 @@ DA:51,1
 LF:14
 LH:14
 end_of_record
-SF:lib\src\module.dart
+SF:lib/src/module.dart
 DA:33,1
 DA:37,1
 DA:39,1
@@ -66,7 +66,7 @@ DA:41,1
 LF:5
 LH:5
 end_of_record
-SF:lib\src\widget.dart
+SF:lib/src/widget.dart
 DA:12,2
 DA:16,2
 DA:17,6
@@ -80,7 +80,7 @@ DA:34,6
 LF:10
 LH:10
 end_of_record
-SF:lib\src\instance.dart
+SF:lib/src/instance.dart
 DA:23,5
 DA:28,4
 DA:29,8
@@ -105,7 +105,7 @@ DA:68,0
 LF:21
 LH:19
 end_of_record
-SF:lib\src\helpers.dart
+SF:lib/src/helpers.dart
 DA:7,5
 DA:8,15
 LF:2

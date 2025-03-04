@@ -1,3 +1,5 @@
+## 1.1.2
+- Documentation: write a short description about the package.
 ## 1.1.1
 - Bugfix: when change module closed all injections
 ## 1.1.0
