@@ -21,3 +21,8 @@
 - Is easy to use, the focus is keep it simple to create a great application.
 - Auto dispose when you remove the FlutterInjection on your Widget Tree.
 - You can dispose a specific object using __dispose<T> method.
+## [Next Version]
+
+### Added
+- New `FlutterNavigatorModule` for organizing routes in modules
+- New `ModularApp` widget for easy module-based navigation setup
