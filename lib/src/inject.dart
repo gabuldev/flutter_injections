@@ -1,5 +1,6 @@
 import '../flutter_injections.dart';
 import 'bind.dart';
+import 'dart:developer';
 
 enum InjectType { factory, singleton, lazySingleton }
 
@@ -29,6 +30,8 @@ class Inject<T> {
   late final Bind<T> _call;
   final InjectType type;
   T? value;
+  bool _canDispose = false;
+
   Inject(this._call, {this.type = InjectType.lazySingleton});
 
   ///Factory to create a singleton bind
@@ -44,10 +47,56 @@ class Inject<T> {
       value = null;
     }
     value ??= _call(i);
+    _checkIfDisposable(value);
     return value!;
   }
 
   void dispose() {
     value = null;
+  }
+
+  /// Verifica se a instância tem um método `close` ou `dispose`.
+  void _checkIfDisposable(T? instance) {
+    if (instance == null) return;
+    _canDispose = false;
+    // Tenta verificar se existe o método close() ou dispose()
+    try {
+       (instance as dynamic).close;
+       _canDispose = true;
+       log("Inject - Instância $T possui método close().");
+       return;
+    } catch (_) {}
+    try {
+       (instance as dynamic).dispose;
+       _canDispose = true;
+       log("Inject - Instância $T possui método dispose().");
+    } catch (_) {
+      log("Inject - Instância $T não possui close() nem dispose().");
+    }
+  }
+  
+  /// Descarta a instância interna se for um singleton e tiver método dispose/close.
+  void disposeInstance() {
+     if (type == InjectType.singleton && value != null && _canDispose) {
+        log("Inject - Chamando dispose/close para singleton $T");
+        try {
+           // Tenta chamar close() primeiro (comum em Blocs/Cubits)
+           (value as dynamic).close();
+           log("Inject - Singleton $T close() chamado.");
+        } catch (e) {
+           // Se close falhar, tenta dispose()
+           try {
+              (value as dynamic).dispose();
+              log("Inject - Singleton $T dispose() chamado.");
+           } catch (e2) {
+              log("Inject - Falha ao chamar close() ou dispose() para $T: $e, $e2");
+           }
+        }
+        value = null; // Limpa a referência após dispose
+     } else if (type == InjectType.singleton) {
+         log("Inject - Singleton $T não precisa/pode ser descartado ou já é nulo.");
+         value = null; // Garante que a referência seja limpa
+     }
+     // Factories não precisam ter o dispose chamado aqui, pois são criadas e usadas externamente.
   }
 }
