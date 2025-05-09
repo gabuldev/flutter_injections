@@ -20,6 +20,7 @@ import 'inject.dart';
 class FlutterInstance {
   final instances = <String, Inject>{};
   final FlutterInjections provider;
+  
   FlutterInstance({
     required this.provider,
   });
@@ -31,37 +32,74 @@ class FlutterInstance {
     }
     final _instance = instances[B.toString()];
     if (_instance != null) {
-      return _instance.get(provider);
+      try {
+         return _instance.get(provider);
+      } catch (e) {
+         log("FlutterInstance.get - Error calling get on Inject for $B: $e");
+         throw InjectException(message: "Error retrieving instance $B: $e");
+      }
     } else {
-      return null;
+      log("FlutterInstance.get - Instance $B not found in this FlutterInstance");
+      return null; // Ou talvez lançar erro aqui? Por enquanto retorna null.
     }
   }
 
   /// Used for add new Inject
+  /// Prevents adding duplicate singletons.
   void set<T>(Inject<T> inject) {
     final type = Helpers.sanitize(inject.toString());
-    instances.addAll({type: inject});
-    log("FlutterInstance - Add injection $type");
+    
+    // CRUCIAL: Evita adicionar/sobrescrever singletons que já existem nesta instância.
+    if (inject.type == InjectType.singleton && instances.containsKey(type)) {
+      log("FlutterInstance.set - Ignorando adição do singleton $type pois já existe.");
+      return; // Não faz nada se o singleton já existe
+    }
+    
+    // Adiciona a injeção (factory ou singleton novo)
+    instances[type] = inject; // Usar atribuição direta para garantir que sobrescreva se necessário (embora não deva para singletons)
+    log("FlutterInstance.set - Adicionada injeção $type");
   }
 
   //Used for dispose specific instance
   void dispose<T>() {
     final type = Helpers.sanitize(T.toString());
-    instances.remove(type);
-    log("FlutterInstance - Dispose injection ${T.toString()}");
+    if (instances.containsKey(type)) {
+      // Tenta chamar o dispose do Inject, se ele tiver um (útil para Blocs, etc)
+      try {
+         instances[type]?.disposeInstance(); 
+      } catch(e) {
+         log("FlutterInstance.dispose<$T> - Erro ao chamar disposeInstance no Inject: $e");
+         // Continua para remover a referência
+      }
+      instances.remove(type);
+      log("FlutterInstance.dispose - Injeção ${T.toString()} removida.");
+    } else {
+       log("FlutterInstance.dispose - Injeção ${T.toString()} não encontrada para remover.");
+    }
   }
 
-  //Used for dispose specific instance
+  //Used for dispose all instances
   void disposeAll() {
-    log("FlutterInstance - Removed injections: ${instances.keys.toList()}");
+    log("FlutterInstance.disposeAll - Removendo todas as ${instances.length} injeções: ${instances.keys.toList()}");
+    // Chama dispose para cada Inject antes de limpar
+    final typesToRemove = instances.keys.toList(); // Copia as chaves para evitar erro de modificação durante iteração
+    for (var type in typesToRemove) {
+      try {
+        instances[type]?.disposeInstance(); // Chama o dispose interno do Inject
+      } catch (e) {
+        log("FlutterInstance.disposeAll - Erro ao chamar disposeInstance para o tipo $type: $e");
+      }
+    }
     instances.clear();
+    log("FlutterInstance.disposeAll - Injeções removidas.");
   }
 
   @override
   bool operator ==(covariant FlutterInstance other) {
     if (identical(this, other)) return true;
-
-    return other.instances == instances;
+    // Compara pela referência do provider (FlutterInjections) e talvez o mapa?
+    // A comparação de mapa pode ser custosa. Talvez baste a referência do provider.
+    return other.provider == provider;
   }
 
   @override
