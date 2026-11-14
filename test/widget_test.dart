@@ -1,5 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_injections/flutter_injections.dart';
 import 'package:flutter_injections/src/exception.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -27,8 +27,9 @@ void main() {
     testWidgets('injected object is available in child widget tree',
         (WidgetTester tester) async {
       await tester.pumpWidget(FlutterInjectionsWidget(
-        builder: (context) => MaterialApp(
-          home: Center(child: Text(FlutterInjections.get<TestClass>().name)),
+        builder: (context) => Directionality(
+          textDirection: TextDirection.ltr,
+          child: Center(child: Text(FlutterInjections.get<TestClass>().name)),
         ),
         injections: [Inject<TestClass>((_) => TestClass())],
       ));
@@ -86,13 +87,22 @@ void main() {
             Inject<TestClass>((_) => TestClass()),
           ],
           builder: (context) {
-            return MaterialApp(
+            final routes = <String, WidgetBuilder>{
+              "/home": (context) => home(),
+              "/page1": (context) => page1(),
+              "/page2": (context) => page2(),
+            };
+            return WidgetsApp(
+              color: const Color(0xFF000000),
               initialRoute: "/home",
               navigatorKey: navigatorKey,
-              routes: {
-                "/home": (context) => home(),
-                "/page1": (context) => page1(),
-                "/page2": (context) => page2(),
+              onGenerateRoute: (settings) {
+                final page = routes[settings.name];
+                if (page == null) return null;
+                return PageRouteBuilder<void>(
+                  settings: settings,
+                  pageBuilder: (context, _, __) => page(context),
+                );
               },
             );
           }));

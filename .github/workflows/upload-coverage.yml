@@ -10,7 +10,8 @@ jobs:
           channel: stable
       - run: |
           flutter pub get
-          flutter analyze
+          # Only the package: example/ is a Material app and moves to material_ui on its own.
+          flutter analyze lib test
           flutter test --coverage
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4
