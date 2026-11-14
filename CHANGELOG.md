@@ -1,3 +1,13 @@
+## 1.3.0
+- New: `FlutterInjections.overrideForTesting(injections)` and
+  `FlutterInjections.resetOverrides()`. A module registers its injections on a
+  level above everything before it, so a fake registered by a test around the
+  module lost to the module's own; the overrides are looked up before every
+  level. The fakes resolve their dependencies from the modules as usual.
+- `InjectException` and `NotDisposeException` are exported from
+  `package:flutter_injections/flutter_injections.dart` (they were only
+  reachable through `src/`).
+
 ## 1.2.0
 - Bugfix: a module rebuilt by its parent (or by a hot reload) registered its
   injections again on every rebuild. Each rebuild created new instances (a
