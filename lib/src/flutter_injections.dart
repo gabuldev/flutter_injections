@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart' show visibleForTesting;
+
 import 'exception.dart';
 import 'inject.dart';
 import 'instance.dart';
@@ -15,10 +17,37 @@ class FlutterInjections {
 
   static final List<FlutterInstance> _instances = [];
 
+  /// Registered by [overrideForTesting]; looked up before every module.
+  static FlutterInstance? _overrides;
+
   FlutterInjections() {
     _current = FlutterInstance(provider: this);
     FlutterInjections._instances.add(_current!);
   }
+
+  // A provider for the overrides level, which is not stacked with the modules.
+  FlutterInjections._detached() {
+    _current = FlutterInstance(provider: this);
+  }
+
+  /// Replaces, in tests, what any module registers for the same types.
+  ///
+  /// A module registers its injections when it enters the tree, on a level
+  /// above everything registered before it, so a fake registered by the test
+  /// around it would lose to the module's own. What is passed here is looked up
+  /// before every level, for as long as it is set. The fakes resolve their own
+  /// dependencies (`i.find`) from the modules as usual.
+  ///
+  /// Call [resetOverrides] when the test ends (`addTearDown`).
+  @visibleForTesting
+  static void overrideForTesting(List<Inject<Object>> injections) {
+    final provider = FlutterInjections._detached()..addInjections(injections);
+    _overrides = provider._current;
+  }
+
+  /// Removes what [overrideForTesting] registered.
+  @visibleForTesting
+  static void resetOverrides() => _overrides = null;
 
   /// Adds a list of injections to the injection container.
   void addInjections(List<Inject<Object>> injections) {
@@ -31,7 +60,8 @@ class FlutterInjections {
   /// Finds and returns an instance of type [T] from the list of registered instances.
   /// Throws an [InjectException] if no instance of type [T] is found.
   static T _find<T>() {
-    T? _instance;
+    T? _instance = _overrides?.get<T>();
+    if (_instance != null) return _instance;
     for (var k = _instances.length - 1; k >= 0; k--) {
       final _i = _instances[k];
       _instance ??= _i.get<T>();

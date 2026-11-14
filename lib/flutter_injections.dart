@@ -1,5 +1,6 @@
 library flutter_injections;
 
+export 'src/exception.dart';
 export 'src/flutter_injections.dart';
 export 'src/inject.dart';
 export 'src/module.dart';
