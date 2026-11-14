@@ -1,3 +1,14 @@
+## 1.2.0
+- Bugfix: a module rebuilt by its parent (or by a hot reload) registered its
+  injections again on every rebuild. Each rebuild created new instances (a
+  `lazySingleton` was built once per rebuild) and stacked a level that leaving
+  the module never removed, so its injections kept resolving after it left the
+  tree. `FlutterInjectionsWidget` now registers once, when it enters the tree,
+  keeps the same instances while it is there, and removes exactly its own level
+  when it leaves.
+- Breaking: the public `FlutterInjectionsWidget.instance` field is gone (the
+  registry now lives in the widget's `State`). `FlutterInjectionsWidget` has a
+  `const` constructor.
 ## 1.1.2
 - Documentation: write a short description about the package.
 ## 1.1.1
