@@ -1,0 +1,31 @@
+# Publishes to pub.dev when a version tag is pushed (e.g. `v1.2.0`), through pub.dev's automated
+# publishing (OIDC): no token is stored here. It only works once the package's admin page on
+# pub.dev has "Automated publishing" enabled for this repository with the tag pattern
+# `v{{version}}`. The tag must match the `version` in pubspec.yaml.
+name: Publish to pub.dev
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+*'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      # Sets up the pub.dev credential from the GitHub OIDC token.
+      - uses: dart-lang/setup-dart@v1
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - name: Tag matches pubspec version
+        run: |
+          version=$(grep '^version:' pubspec.yaml | awk '{print $2}')
+          [ "v$version" = "$GITHUB_REF_NAME" ] || { echo "::error::tag $GITHUB_REF_NAME != pubspec $version"; exit 1; }
+      - run: flutter pub get
+      - run: flutter test
+      - run: flutter pub publish --dry-run
+      - run: flutter pub publish --force
