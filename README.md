@@ -5,7 +5,7 @@ This package helps you to manage any dependencies in your project without need t
 
 ## Learn more
 
-More details on the [documentation](https://gabuldev-packages.web.app/).
+More details on the [API documentation](https://pub.dev/documentation/flutter_injections/latest/).
 
 ## Why Flutter Injections?
 
