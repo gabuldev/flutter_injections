@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_injections/flutter_injections.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -23,8 +23,9 @@ void main() {
   group('FlutterModule', () {
     testWidgets('injected object is available in child widget tree',
         (WidgetTester tester) async {
-      await tester.pumpWidget(const MaterialApp(
-        home: TestModule(
+      await tester.pumpWidget(const Directionality(
+        textDirection: TextDirection.ltr,
+        child: TestModule(
           key: Key("value"),
         ),
       ));
@@ -33,8 +34,9 @@ void main() {
     });
   });
   testWidgets('FlutterModule has a non-null key', (WidgetTester tester) async {
-    await tester.pumpWidget(const MaterialApp(
-      home: TestModule(key: ValueKey('test')),
+    await tester.pumpWidget(const Directionality(
+      textDirection: TextDirection.ltr,
+      child: TestModule(key: ValueKey('test')),
     ));
 
     final moduleFinder = find.byType(TestModule);

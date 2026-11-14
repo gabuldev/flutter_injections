@@ -9,6 +9,8 @@
 - Breaking: the public `FlutterInjectionsWidget.instance` field is gone (the
   registry now lives in the widget's `State`). `FlutterInjectionsWidget` has a
   `const` constructor.
+- The package imports only `package:flutter/widgets.dart`, not Material
+  (deprecated in Flutter 3.50 in favour of `material_ui`).
 ## 1.1.2
 - Documentation: write a short description about the package.
 ## 1.1.1

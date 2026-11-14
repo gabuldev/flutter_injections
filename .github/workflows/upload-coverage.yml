@@ -4,14 +4,16 @@ jobs:
   test_coverage:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: subosito/flutter-action@v1
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
+          channel: stable
       - run: |
           flutter pub get
-          flutter test --coverage  
+          # Only the package: example/ is a Material app and moves to material_ui on its own.
+          flutter analyze lib test
+          flutter test --coverage
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
